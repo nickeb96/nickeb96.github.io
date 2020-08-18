@@ -1,0 +1,50 @@
+@keyframes RevolveAnimation {
+  0% { transform: translate(0px, 10px); }
+  5% { transform: translate(3.090px, 9.511px); }
+  10% { transform: translate(5.878px, 8.090px); }
+  15% { transform: translate(8.090px, 5.878px); }
+  20% { transform: translate(9.511px, 3.090px); }
+  25% { transform: translate(10px, 0px); }
+  30% { transform: translate(9.511px, -3.090px); }
+  35% { transform: translate(8.090px, -5.878px); }
+  40% { transform: translate(5.878px, -8.090px); }
+  45% { transform: translate(3.090px, -9.511px); }
+  50% { transform: translate(0px, -10px); }
+  55% { transform: translate(-3.090px, -9.511px); }
+  60% { transform: translate(-5.878px, -8.090px); }
+  65% { transform: translate(-8.090px, -5.878px); }
+  70% { transform: translate(-9.511px, -3.090px); }
+  75% { transform: translate(-10px, 0px); }
+  80% { transform: translate(-9.511px, 3.090px); }
+  85% { transform: translate(-8.090px, 5.878px); }
+  90% { transform: translate(-5.878px, 8.090px); }
+  95% { transform: translate(-3.090px, 9.511px); }
+  100% { transform: translate(0px, 10px); }
+}
+
+.revolve {
+   animation-name: RevolveAnimation;
+   animation-duration: 6s;
+   animation-timing-function: linear;
+   animation-iteration-count: infinite;
+}
+
+.start-offset-a {
+  animation-delay: 0s;
+}
+
+.start-offset-b {
+  animation-delay: -1s;
+}
+
+.start-offset-c {
+  animation-delay: -2s;
+}
+
+.start-offset-d {
+  animation-delay: -3s;
+}
+
+.planet {
+  position: relative;
+}
