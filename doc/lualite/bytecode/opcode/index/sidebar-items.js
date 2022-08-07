@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["On",""]],"fn":[["decode",""]],"struct":[["DecodedIndex",""]],"type":[["DestinationType",""],["IndexType",""],["SourceType",""]]});

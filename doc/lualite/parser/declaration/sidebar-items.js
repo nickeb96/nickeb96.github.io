@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["declaration","Parses any declaration"],["function_decl","Parses a function declaration"],["static_decl","Parses a static declaration"]]});

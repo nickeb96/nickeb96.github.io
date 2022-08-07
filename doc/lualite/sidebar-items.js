@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["ast","Abstract Syntax Tree types"],["bytecode","Instruction bytecode"],["compiler",""],["parser","Parses source code text into AST components"],["runtime","Bytecode runtime"]]});
