@@ -158,15 +158,31 @@
 <span id="151">151</span>
 <span id="152">152</span>
 <span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Instruction bytecode</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! All instructions are 32 bits with the first byte being the [opcode] and the</span>
+<span class="doccomment">//! Bytecode represents a state in the `parse -&gt; compile -&gt; interpret` pipeline.  It is</span>
+<span class="doccomment">//! the output of the [`compiler`] and the input of a [`VirtualMachine`].</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! [`compiler`]: crate::compiler</span>
+<span class="doccomment">//! [`VirtualMachine`]: crate::runtime::VirtualMachine</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! All instructions are 32 bits, with the first byte being the [opcode] and the</span>
 <span class="doccomment">//! remaining 3 bytes being used for [operand]s.  The opcode byte determines how</span>
 <span class="doccomment">//! the operand bytes are interpreted.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! For the opcode byte, the first 2 bits are the [`SuperCode`](opcode::SuperCode).</span>
-<span class="doccomment">//! This bit field separates the opcode into 4 categories: [mod@arithmetic],</span>
-<span class="doccomment">//! [mod@comparison], [mod@index], and [mod@misc].</span>
+<span class="doccomment">//! This bit field separates the opcode into 4 instruction categories:</span>
+<span class="doccomment">//! [mod@arithmetic], [mod@comparison], [mod@index], and [mod@misc].  The</span>
+<span class="doccomment">//! remaining 6 bits of the opcode are interpreted differently depending on the</span>
+<span class="doccomment">//! category.</span>
 
 <span class="kw">mod</span> <span class="ident">instruction</span>;
 <span class="kw">mod</span> <span class="ident">procedure</span>;

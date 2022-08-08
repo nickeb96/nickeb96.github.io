@@ -77,12 +77,40 @@
 <span id="70">70</span>
 <span id="71">71</span>
 <span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
+<span id="75">75</span>
+<span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
 </pre><pre class="rust"><code>
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ast</span>::{<span class="ident">IntegerLiteral</span>, <span class="ident">FloatLiteral</span>, <span class="ident">BooleanLiteral</span>, <span class="ident">StringLiteral</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::runtime</span>;
 
 <span class="doccomment">/// Constant literals in a function</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// `ConstantValue`s are stored in a [`Procedure`]&#39;s constant table.  Instructions</span>
+<span class="doccomment">/// from that procedure can refer to its constant values with a [`ConstantKey`]</span>
+<span class="doccomment">/// (from [`bytecode::operand`]).  A constant key is just an index into that table.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Each procedure has its own table of `ConstantValue`s.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// A [`VirtualMachine`] can create a runtime [`Value`] directly from a `ConstantValue`.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`ConstantKey`]: crate::bytecode::operand::ConstantKey</span>
+<span class="doccomment">/// [`bytecode::operand`]: crate::bytecode::operand</span>
+<span class="doccomment">/// [`Procedure`]: crate::bytecode::Procedure</span>
+<span class="doccomment">/// [`VirtualMachine`]: crate::runtime::VirtualMachine</span>
+<span class="doccomment">/// [`Value`]: crate::runtime::Value</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">PartialEq</span>, <span class="ident">PartialOrd</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">ConstantValue</span> {
   <span class="ident">Integer</span>(<span class="ident">i64</span>),
