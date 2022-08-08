@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["SuperCode","First 2 bits determining instruction category"]],"mod":[["arithmetic","Arithmetic subcodes"],["common",""],["comparison",""],["index",""],["misc",""]]});
+initSidebarItems({"enum":[["SuperCode","Determines instruction category (bits 0..2)"]],"mod":[["arithmetic","Arithmetic subcodes"],["comparison","Comparison subcodes"],["index","Indexing subcodes"],["misc","Miscellaneous instruction subcodes"]]});

@@ -189,7 +189,41 @@
 <span id="182">182</span>
 <span id="183">183</span>
 <span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">allow</span>(<span class="ident">unused</span>)]</span>
+<span class="doccomment">//! Miscellaneous instruction subcodes</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Misc has 4 different sub-categories of instructions:</span>
+<span class="doccomment">//! - Jump</span>
+<span class="doccomment">//! - Move</span>
+<span class="doccomment">//! - Call</span>
+<span class="doccomment">//! - Interrupt (currently unimplemented)</span>
 
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::<span class="kw">super</span>::instruction::Instruction</span>;
@@ -200,8 +234,7 @@
 };
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::common</span>;
 
-
-<span class="comment">// 2 bits</span>
+<span class="doccomment">/// Instruction type (bits 2..4)</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u32</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Subcode</span> {
@@ -237,13 +270,23 @@
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">jump_subcode</span> {
   <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-  <span class="comment">// 2 bits</span>
+  <span class="doccomment">/// Reason for jumping (bits 4..6)</span>
+  <span class="doccomment">///</span>
+  <span class="doccomment">/// For conditional jumps, bits 8..16 hold a conditional operand which will be</span>
+  <span class="doccomment">/// either a register or a global key depending on [`ConditionType`].</span>
+  <span class="doccomment">///</span>
+  <span class="doccomment">/// For conditional and unconditional jumps, bits 16..32 hold an</span>
+  <span class="doccomment">/// [`InstructionPointer`](crate::bytecode::operand::InstructionPointer) to jump to.</span>
   <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
   <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u32</span>)]</span>
   <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Reason</span> {
+    <span class="doccomment">/// See [`jump_subcode::Special`]</span>
     <span class="ident">Special</span> <span class="op">=</span> <span class="number">0b_00_0000</span>,
+    <span class="doccomment">/// Unconditional jump (no conditional operand)</span>
     <span class="ident">Always</span>  <span class="op">=</span> <span class="number">0b_01_0000</span>, <span class="comment">// remaining 2 bits are unused</span>
+    <span class="doccomment">/// Jump if conditional operand (bits 8..16) is false</span>
     <span class="ident">IfFalse</span> <span class="op">=</span> <span class="number">0b_10_0000</span>,
+    <span class="doccomment">/// Jump if conditional operand (bits 8..16) is true</span>
     <span class="ident">IfTrue</span>  <span class="op">=</span> <span class="number">0b_11_0000</span>,
   }
 
@@ -283,13 +326,17 @@
     }
   }
 
-  <span class="comment">// 2 bits</span>
+  <span class="doccomment">/// Special reasons for jumping (bits 6..8)</span>
   <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
   <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u32</span>)]</span>
   <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Special</span> {
+    <span class="doccomment">/// Don&#39;t jump at all (no-op)</span>
     <span class="ident">NoOp</span>    <span class="op">=</span> <span class="number">0b_00_000000</span>,
+    <span class="doccomment">/// Function return</span>
     <span class="ident">Return</span>  <span class="op">=</span> <span class="number">0b_01_000000</span>,
+    <span class="doccomment">/// Currently unused</span>
     <span class="ident">Xa</span>      <span class="op">=</span> <span class="number">0b_10_000000</span>,
+    <span class="doccomment">/// Currently unused</span>
     <span class="ident">Xb</span>      <span class="op">=</span> <span class="number">0b_11_000000</span>,
   }
 
@@ -317,6 +364,13 @@
     }
   }
 
+  <span class="doccomment">/// How to interpret the conditional operand (bit 6)</span>
+  <span class="doccomment">///</span>
+  <span class="doccomment">/// Possible values are:</span>
+  <span class="doccomment">/// - `ConditionType::Register` --- conditional operand will be interpreted as a register</span>
+  <span class="doccomment">/// - `ConditionType::Global` --- conditional operand will be interpreted as a key into the global table</span>
+  <span class="doccomment">///</span>
+  <span class="doccomment">/// The conditional operand is in bits 8..16 of the instruction</span>
   <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">ConditionType</span> <span class="op">=</span> <span class="ident">common::WildDestinationType</span><span class="op">&lt;</span><span class="number">6</span><span class="op">&gt;</span>;
 }
 

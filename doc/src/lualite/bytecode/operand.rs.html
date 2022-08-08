@@ -363,7 +363,23 @@
 <span id="356">356</span>
 <span id="357">357</span>
 <span id="358">358</span>
-</pre><pre class="rust"><code>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Representation of the operand bytes</span>
+
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::instruction::Instruction</span>;
 
@@ -502,10 +518,13 @@
   }
 }
 
-<span class="doccomment">/// Literal integer operand small enough to fit in a single byte</span>
+<span class="doccomment">/// Integer literal small enough to fit into a single signed byte</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Must be in the range `-128..=127` to be an immediate.  Integers outside this</span>
-<span class="doccomment">/// range and other literal types like double-precision floats must use [`ConstantKey`].</span>
+<span class="doccomment">/// Values must be in the range `-128..=127` to be an immediate.  Immediates are be</span>
+<span class="doccomment">/// embedded directly into an operand byte of an instruction.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Integers outside this range and other literal types like double-precision floats</span>
+<span class="doccomment">/// and strings must use [`ConstantKey`].</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Immediate</span>(<span class="kw">pub</span> <span class="ident">i8</span>);
@@ -533,9 +552,11 @@
     <span class="ident">Immediate</span>((<span class="ident">instruction</span>.<span class="number">0</span> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="ident">SECOND_SOURCE_OFFSET</span>) <span class="kw">as</span> <span class="ident">u8</span> <span class="kw">as</span> <span class="ident">i8</span>)
   }
 }
+
 <span class="doccomment">/// A key into a function&#39;s constant table</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Used for integer literals outsize the range of `-127..=128` and other literal types.</span>
+<span class="doccomment">/// Used for integer literals outsize the range of `-127..=128` and other literal types</span>
+<span class="doccomment">/// that can&#39;t fit into a single byte.</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ConstantKey</span>(<span class="kw">pub</span> <span class="ident">u8</span>);
@@ -672,8 +693,17 @@
 
 <span class="doccomment">/// An index into the bytecode array</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// A 16 bit unsigned integer taking up both source operands.  It is used by the</span>
+<span class="doccomment">/// A 16 bit unsigned integer taking up both source operand bytes.  It is used by the</span>
 <span class="doccomment">/// jump family of instructions under [misc](../opcode/misc/index.html).</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Instruction pointers are always an absolute offset from the beginning of a</span>
+<span class="doccomment">/// function&#39;s bytecode.  Setting a jump&#39;s instruction pointer target to be outside the</span>
+<span class="doccomment">/// bounds of the function&#39;s bytecode will cause a [`RuntimeError`] in the</span>
+<span class="doccomment">/// [`VirtualMachine`].  Runtime errors are safe and recoverable by host code, but hault</span>
+<span class="doccomment">/// client code running in a virtual machine when they are encountered.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`RuntimeError`]: crate::runtime::RuntimeError</span>
+<span class="doccomment">/// [`VirtualMachine`]: crate::runtime::VirtualMachine</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">InstructionPointer</span>(<span class="kw">pub</span> <span class="ident">u16</span>);

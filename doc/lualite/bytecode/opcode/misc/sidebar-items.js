@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["Subcode",""]],"mod":[["call_subcode",""],["jump_subcode",""],["move_subcode",""]]});
+initSidebarItems({"enum":[["Subcode","Instruction type (bits 2..4)"]],"mod":[["call_subcode",""],["jump_subcode",""],["move_subcode",""]]});

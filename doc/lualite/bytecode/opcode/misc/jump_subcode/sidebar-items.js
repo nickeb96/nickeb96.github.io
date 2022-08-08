@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["Reason",""],["Special",""]],"type":[["ConditionType",""]]});
+initSidebarItems({"enum":[["Reason","Reason for jumping (bits 4..6)"],["Special","Special reasons for jumping (bits 6..8)"]],"type":[["ConditionType","How to interpret the conditional operand (bit 6)"]]});

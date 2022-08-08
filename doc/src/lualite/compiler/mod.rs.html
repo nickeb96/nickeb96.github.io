@@ -53,7 +53,7 @@
 <span class="kw">use</span> <span class="ident">std::fmt::Write</span>;
 <span class="kw">use</span> <span class="ident">std::borrow::Borrow</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::ast</span>::{<span class="ident">FunctionDecl</span>, <span class="ident">Declaration</span>, <span class="ident">Statement</span>};
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::bytecode::procedure::Procedure</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::bytecode::Procedure</span>;
 <span class="kw">use</span> <span class="ident">function::FunctionCompiler</span>;
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">compile_function</span>(<span class="ident">function</span>: <span class="kw-2">&amp;</span><span class="ident">FunctionDecl</span>) -&gt; <span class="ident">Procedure</span> {

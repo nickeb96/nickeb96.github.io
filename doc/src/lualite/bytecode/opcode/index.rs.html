@@ -81,7 +81,44 @@
 <span id="74">74</span>
 <span id="75">75</span>
 <span id="76">76</span>
+<span id="77">77</span>
+<span id="78">78</span>
+<span id="79">79</span>
+<span id="80">80</span>
+<span id="81">81</span>
+<span id="82">82</span>
+<span id="83">83</span>
+<span id="84">84</span>
+<span id="85">85</span>
+<span id="86">86</span>
+<span id="87">87</span>
+<span id="88">88</span>
+<span id="89">89</span>
+<span id="90">90</span>
+<span id="91">91</span>
+<span id="92">92</span>
+<span id="93">93</span>
+<span id="94">94</span>
+<span id="95">95</span>
+<span id="96">96</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">allow</span>(<span class="ident">unused</span>)]</span>
+<span class="doccomment">//! Indexing subcodes</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Instructions from the index category are parsed like so:</span>
+<span class="doccomment">//! ```text</span>
+<span class="doccomment">//! 01 x x xx xx  dddddddd  ssssssss  iiiiiiii</span>
+<span class="doccomment">//! |/ | | \| \|  +-------  +-------  +-------</span>
+<span class="doccomment">//! |  | |  |  |  |         |         |</span>
+<span class="doccomment">//! |  | |  |  |  |         |         |</span>
+<span class="doccomment">//! |  | |  |  |  |         |         +-- the index operand (register, global, immediate, or constant)</span>
+<span class="doccomment">//! |  | |  |  |  |         +-- source operand (register, global, immediate, or constant)</span>
+<span class="doccomment">//! |  | |  |  |  +-- the destination operand (register or global)</span>
+<span class="doccomment">//! |  | |  |  +-- the type of the index operand</span>
+<span class="doccomment">//! |  | |  +-- the type of the source operand</span>
+<span class="doccomment">//! |  | +-- the type of the destination operand</span>
+<span class="doccomment">//! |  +-- index on source or destination</span>
+<span class="doccomment">//! +-- super code (always 0b_01 for index)</span>
+<span class="doccomment">//! ```</span>
 
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::common</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::<span class="kw">super</span>::operand</span>::{
@@ -91,7 +128,7 @@
 };
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::<span class="kw">super</span>::instruction::Instruction</span>;
 
-<span class="comment">// 1 bit</span>
+<span class="doccomment">/// Determines whether the index is on the source or the destination (bit 2)</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u32</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">On</span> {
@@ -120,10 +157,13 @@
   }
 }
 
+<span class="doccomment">/// How to interpret the destination operand (bit 3)</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">DestinationType</span> <span class="op">=</span> <span class="ident">common::WildDestinationType</span><span class="op">&lt;</span><span class="number">3</span><span class="op">&gt;</span>;
 
+<span class="doccomment">/// How to interpret the source operand (bits 4..6)</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">SourceType</span> <span class="op">=</span> <span class="ident">common::WildSourceType</span><span class="op">&lt;</span><span class="number">4</span><span class="op">&gt;</span>;
 
+<span class="doccomment">/// How to interpret the index operand (bits 6..8)</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">IndexType</span> <span class="op">=</span> <span class="ident">common::WildSourceType</span><span class="op">&lt;</span><span class="number">6</span><span class="op">&gt;</span>;
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">DecodedIndex</span> {

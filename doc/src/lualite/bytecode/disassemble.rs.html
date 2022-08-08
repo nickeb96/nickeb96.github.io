@@ -129,9 +129,9 @@
 };
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::bytecode::operand</span>::{
   <span class="ident">FromDestination</span>, <span class="ident">FromSource</span>,
-  <span class="ident">Register</span>, <span class="ident">RawRegister</span>, <span class="ident">Global</span>, <span class="ident">Immediate</span>, <span class="ident">ConstantKey</span>,
-  <span class="ident">WildDestination</span>, <span class="ident">WildSource</span>,
-  <span class="ident">InstructionPointer</span>, <span class="ident">FunctionKey</span>,
+  <span class="ident">RawRegister</span>, <span class="ident">Global</span>,
+  <span class="ident">WildDestination</span>,
+  <span class="ident">InstructionPointer</span>, <span class="ident">FunctionKey</span>
 };
 
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">disassemble_instruction</span>(<span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">fmt::Formatter</span>, <span class="ident">instruction</span>: <span class="ident">Instruction</span>) -&gt; <span class="ident">fmt::Result</span> {

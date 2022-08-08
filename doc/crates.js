@@ -1,1 +1,1 @@
-window.ALL_CRATES = ["either","lazy_static","lualite","memchr","minimal_lexical","nom","num_enum","num_enum_derive","proc_macro2","proc_macro_crate","quote","serde","syn","thiserror","thiserror_impl","toml","unicode_ident"];
+window.ALL_CRATES = ["either","lualite","memchr","minimal_lexical","nom"];

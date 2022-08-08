@@ -51,15 +51,13 @@
 <span id="44">44</span>
 <span id="45">45</span>
 <span id="46">46</span>
-<span id="47">47</span>
 </pre><pre class="rust"><code>
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
-<span class="kw">use</span> <span class="ident">std::rc::Weak</span>;
-<span class="kw">use</span> <span class="ident">std::cell::Cell</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::constant_value::ConstantValue</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::instruction::Instruction</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::operand</span>::{<span class="ident">ConstantKey</span>, <span class="ident">FunctionKey</span>};
 
+<span class="doccomment">/// Compiled function</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Procedure</span> {
   <span class="kw">pub</span> <span class="ident">bytecode</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Instruction</span><span class="op">&gt;</span>,

@@ -134,7 +134,49 @@
 <span id="127">127</span>
 <span id="128">128</span>
 <span id="129">129</span>
+<span id="130">130</span>
+<span id="131">131</span>
+<span id="132">132</span>
+<span id="133">133</span>
+<span id="134">134</span>
+<span id="135">135</span>
+<span id="136">136</span>
+<span id="137">137</span>
+<span id="138">138</span>
+<span id="139">139</span>
+<span id="140">140</span>
+<span id="141">141</span>
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
 </pre><pre class="rust"><code><span class="attribute">#![<span class="ident">allow</span>(<span class="ident">unused</span>)]</span>
+<span class="doccomment">//! Comparison subcodes</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! Instructions from the comparison category are parsed like so:</span>
+<span class="doccomment">//! ```text</span>
+<span class="doccomment">//! 10 xxx x xx  dddddddd  ffffffff  ssssssss</span>
+<span class="doccomment">//! |/ \ / | \|  +-------  +-------  +-------</span>
+<span class="doccomment">//! |   |  |  |  |         |         |</span>
+<span class="doccomment">//! |   |  |  |  |         |         |</span>
+<span class="doccomment">//! |   |  |  |  |         |         +-- the second source operand (wildcard or register depending on bit 5)</span>
+<span class="doccomment">//! |   |  |  |  |         +-- first source operand (wildcard or register depending on bit 5)</span>
+<span class="doccomment">//! |   |  |  |  +-- the destination operand (always interpreted as a register)</span>
+<span class="doccomment">//! |   |  |  +-- the type of the wildcard source operand</span>
+<span class="doccomment">//! |   |  +-- which source operand is a wildcard</span>
+<span class="doccomment">//! |   +-- comparison operation type subcode</span>
+<span class="doccomment">//! +-- super code (always 0b_10 for comparison)</span>
+<span class="doccomment">//! ```</span>
 
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::<span class="kw">super</span>::instruction::Instruction</span>;
@@ -145,18 +187,26 @@
 };
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::common</span>;
 
-<span class="comment">// 3 bits</span>
+<span class="doccomment">/// Comparison sub-opcode type (bits 2..5)</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u32</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Subcode</span> {
+  <span class="doccomment">/// `==`</span>
   <span class="ident">Eq</span> <span class="op">=</span> <span class="number">0b_000_00</span>,
+  <span class="doccomment">/// `!=`</span>
   <span class="ident">Ne</span> <span class="op">=</span> <span class="number">0b_001_00</span>,
+  <span class="doccomment">/// `&lt;`</span>
   <span class="ident">Lt</span> <span class="op">=</span> <span class="number">0b_010_00</span>,
+  <span class="doccomment">/// `&gt;`</span>
   <span class="ident">Gt</span> <span class="op">=</span> <span class="number">0b_011_00</span>,
+  <span class="doccomment">/// `&lt;=`</span>
   <span class="ident">Le</span> <span class="op">=</span> <span class="number">0b_100_00</span>,
+  <span class="doccomment">/// `&gt;=`</span>
   <span class="ident">Ge</span> <span class="op">=</span> <span class="number">0b_101_00</span>,
-  <span class="ident">Xa</span> <span class="op">=</span> <span class="number">0b_110_00</span>, <span class="comment">// unused</span>
-  <span class="ident">Xb</span> <span class="op">=</span> <span class="number">0b_111_00</span>, <span class="comment">// unused</span>
+  <span class="doccomment">/// Unused</span>
+  <span class="ident">Xa</span> <span class="op">=</span> <span class="number">0b_110_00</span>,
+  <span class="doccomment">/// Unused</span>
+  <span class="ident">Xb</span> <span class="op">=</span> <span class="number">0b_111_00</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Subcode</span> {
@@ -217,8 +267,10 @@
   }
 }
 
+<span class="doccomment">/// Whether the first source or the second source is a wildcard (bit 5)</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">WhichSourceIsWild</span> <span class="op">=</span> <span class="ident">common::WhichSourceIsWild</span><span class="op">&lt;</span><span class="number">5</span><span class="op">&gt;</span>;
 
+<span class="doccomment">/// How to interpret the wildcard operand (bits 6..8)</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">WildSourceType</span> <span class="op">=</span> <span class="ident">common::WildSourceType</span><span class="op">&lt;</span><span class="number">6</span><span class="op">&gt;</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>

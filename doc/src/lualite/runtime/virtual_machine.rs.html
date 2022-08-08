@@ -438,7 +438,7 @@
 </pre><pre class="rust"><code>
 <span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
 <span class="kw">use</span> <span class="ident">std::rc::Rc</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::bytecode::instruction::Instruction</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::bytecode::Instruction</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::bytecode::opcode</span>::{<span class="ident">SuperCode</span>, <span class="ident">misc</span>, <span class="ident">index</span>, <span class="ident">comparison</span>, <span class="ident">arithmetic</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::bytecode::operand</span>::{
   <span class="ident">FromDestination</span>, <span class="ident">FromSource</span>,
@@ -447,7 +447,7 @@
   <span class="ident">WildDestination</span>, <span class="ident">WildSource</span>,
 };
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::bytecode::constant_value::ConstantValue</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::bytecode::procedure::Procedure</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::bytecode::Procedure</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::error::RuntimeError</span>;
 <span class="kw">use</span> <span class="kw">super</span>::{<span class="ident">Value</span>, <span class="ident">InstructionCount</span>, <span class="ident">ExecutionStatus</span>};
 

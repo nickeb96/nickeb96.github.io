@@ -148,8 +148,14 @@
 <span id="141">141</span>
 <span id="142">142</span>
 <span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Arithmetic subcodes</span>
 <span class="doccomment">//!</span>
+<span class="doccomment">//! Instructions from the arithmetic category are parsed like so:</span>
 <span class="doccomment">//! ```text</span>
 <span class="doccomment">//! 11 xxx x xx  dddddddd  ffffffff  ssssssss</span>
 <span class="doccomment">//! |/ \ / | \|  +-------  +-------  +-------</span>
@@ -161,19 +167,19 @@
 <span class="doccomment">//! |   |  |  +-- the type of the wildcard source operand</span>
 <span class="doccomment">//! |   |  +-- which source operand is a wildcard</span>
 <span class="doccomment">//! |   +-- arithmetic operation type subcode</span>
-<span class="doccomment">//! +-- super code (always 0b11 for arithmetic)</span>
+<span class="doccomment">//! +-- super code (always 0b_11 for arithmetic)</span>
 <span class="doccomment">//! ```</span>
 
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::<span class="kw">super</span>::instruction::Instruction</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::<span class="kw">super</span>::operand</span>::{
-  <span class="ident">FromDestination</span>, <span class="ident">FromSource</span>, <span class="ident">Register</span>,
+  <span class="ident">FromDestination</span>, <span class="ident">FromSource</span>,
   <span class="ident">RawRegister</span>, <span class="ident">Global</span>, <span class="ident">Immediate</span>, <span class="ident">ConstantKey</span>,
   <span class="ident">WildSource</span>,
 };
 <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::common</span>;
 
-<span class="comment">// 3 bits</span>
+<span class="doccomment">/// Arithmetic sub-opcode type (bits 2..5)</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u32</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Subcode</span> {
@@ -183,7 +189,9 @@
   <span class="ident">Div</span> <span class="op">=</span> <span class="number">0b_011_00</span>,
   <span class="ident">Rem</span> <span class="op">=</span> <span class="number">0b_100_00</span>,
   <span class="ident">Pow</span> <span class="op">=</span> <span class="number">0b_101_00</span>,
+  <span class="doccomment">/// Currently unused</span>
   <span class="ident">Rot</span> <span class="op">=</span> <span class="number">0b_110_00</span>,
+  <span class="doccomment">/// Currently unused</span>
   <span class="ident">Log</span> <span class="op">=</span> <span class="number">0b_111_00</span>,
 }
 
@@ -245,8 +253,10 @@
   }
 }
 
+<span class="doccomment">/// Whether the first source or the second source is a wildcard (bit 5)</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">WhichSourceIsWild</span> <span class="op">=</span> <span class="ident">common::WhichSourceIsWild</span><span class="op">&lt;</span><span class="number">5</span><span class="op">&gt;</span>;
 
+<span class="doccomment">/// How to interpret the wildcard operand (bits 6..8)</span>
 <span class="kw">pub</span> <span class="kw">type</span> <span class="ident">WildSourceType</span> <span class="op">=</span> <span class="ident">common::WildSourceType</span><span class="op">&lt;</span><span class="number">6</span><span class="op">&gt;</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>)]</span>

@@ -418,8 +418,8 @@
   <span class="ident">InstructionPointer</span>, <span class="ident">FunctionKey</span>,
 };
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::bytecode::constant_value::ConstantValue</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::bytecode::instruction::Instruction</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::bytecode::procedure::Procedure</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::bytecode::Instruction</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::bytecode::Procedure</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::compiler::temporary</span>::{<span class="ident">Temporary</span>, <span class="ident">TempManager</span>};
 
 <span class="kw">type</span> <span class="ident">RawOrTemp</span> <span class="op">=</span> <span class="ident">Either</span><span class="op">&lt;</span><span class="ident">RawRegister</span>, <span class="ident">Temporary</span><span class="op">&gt;</span>;

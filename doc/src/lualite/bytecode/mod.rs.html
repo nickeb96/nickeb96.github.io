@@ -156,26 +156,30 @@
 <span id="149">149</span>
 <span id="150">150</span>
 <span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Instruction bytecode</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! All instructions are 32 bits with the first byte being the opcode and the</span>
-<span class="doccomment">//! remaining 3 bytes being used for operands.  The way the operands are interpreted</span>
-<span class="doccomment">//! is dependent on the opcode byte.</span>
+<span class="doccomment">//! All instructions are 32 bits with the first byte being the [opcode] and the</span>
+<span class="doccomment">//! remaining 3 bytes being used for [operand]s.  The opcode byte determines how</span>
+<span class="doccomment">//! the operand bytes are interpreted.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! For the opcode byte, the first 2 bits are the [`SuperCode`](./opcode/enum.SuperCode.html)</span>
-<span class="doccomment">//! and they separate the instruction into 4 instruction categories: [mod@arithmetic],</span>
+<span class="doccomment">//! For the opcode byte, the first 2 bits are the [`SuperCode`](opcode::SuperCode).</span>
+<span class="doccomment">//! This bit field separates the opcode into 4 categories: [mod@arithmetic],</span>
 <span class="doccomment">//! [mod@comparison], [mod@index], and [mod@misc].</span>
 
+<span class="kw">mod</span> <span class="ident">instruction</span>;
+<span class="kw">mod</span> <span class="ident">procedure</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">opcode</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">operand</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">instruction</span>;
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">procedure</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">disassemble</span>;
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">constant_value</span>;
 
-<span class="kw">use</span> <span class="ident">opcode</span>::{<span class="ident">SuperCode</span>, <span class="ident">misc</span>, <span class="ident">index</span>, <span class="ident">comparison</span>, <span class="ident">arithmetic</span>, <span class="ident">common</span>};
+<span class="kw">use</span> <span class="ident">opcode</span>::{<span class="ident">SuperCode</span>, <span class="ident">misc</span>, <span class="ident">index</span>, <span class="ident">comparison</span>, <span class="ident">arithmetic</span>};
 <span class="kw">use</span> <span class="ident">operand</span>::{<span class="ident">AsDestination</span>, <span class="ident">AsSource</span>, <span class="ident">Register</span>, <span class="ident">WildSource</span>, <span class="ident">WildDestination</span>, <span class="ident">InstructionPointer</span>, <span class="ident">FunctionKey</span>};
-<span class="kw">use</span> <span class="ident">instruction::Instruction</span>;
+
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">instruction::Instruction</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="ident">procedure::Procedure</span>;
 
 <span class="comment">// Misc</span>
 

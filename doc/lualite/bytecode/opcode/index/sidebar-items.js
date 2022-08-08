@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["On",""]],"fn":[["decode",""]],"struct":[["DecodedIndex",""]],"type":[["DestinationType",""],["IndexType",""],["SourceType",""]]});
+initSidebarItems({"enum":[["On","Determines whether the index is on the source or the destination (bit 2)"]],"fn":[["decode",""]],"struct":[["DecodedIndex",""]],"type":[["DestinationType","How to interpret the destination operand (bit 3)"],["IndexType","How to interpret the index operand (bits 6..8)"],["SourceType","How to interpret the source operand (bits 4..6)"]]});

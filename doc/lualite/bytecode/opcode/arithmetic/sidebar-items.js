@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["Sources",""],["Subcode",""]],"fn":[["decode",""]],"struct":[["DecodedArithmetic",""]],"type":[["WhichSourceIsWild",""],["WildSourceType",""]]});
+initSidebarItems({"enum":[["Sources",""],["Subcode","Arithmetic sub-opcode type (bits 2..5)"]],"fn":[["decode",""]],"struct":[["DecodedArithmetic",""]],"type":[["WhichSourceIsWild","Whether the first source or the second source is a wildcard (bit 5)"],["WildSourceType","How to interpret the wildcard operand (bits 6..8)"]]});
