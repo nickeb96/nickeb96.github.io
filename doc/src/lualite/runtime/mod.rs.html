@@ -53,12 +53,12 @@
 </pre><pre class="rust"><code><span class="doccomment">//! Bytecode runtime</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Create a [`VirtualMachine`] and attach compiled functions to it.  Begin execution</span>
-<span class="doccomment">//! with [`start`], or use [`call_with_values`] and [`execution_loop`] for more fine grained</span>
+<span class="doccomment">//! with [`run`], or use [`initialize_with_values`] and [`execution_loop`] for more fine grained</span>
 <span class="doccomment">//! control.</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! [`start`]: #method.start</span>
-<span class="doccomment">//! [`call_with_values`]: #method.call_with_values</span>
-<span class="doccomment">//! [`execution_loop`]: #method.execution_loop</span>
+<span class="doccomment">//! [`run`]: VirtualMachine::run</span>
+<span class="doccomment">//! [`initialize_with_values`]: VirtualMachine::initialize_with_values</span>
+<span class="doccomment">//! [`execution_loop`]: VirtualMachine::execution_loop</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Example:</span>
 <span class="doccomment">//! ```rust</span>

@@ -378,6 +378,10 @@
 <span id="371">371</span>
 <span id="372">372</span>
 <span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Representation of the operand bytes</span>
 
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
@@ -520,8 +524,8 @@
 
 <span class="doccomment">/// Integer literal small enough to fit into a single signed byte</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Values must be in the range `-128..=127` to be an immediate.  Immediates are be</span>
-<span class="doccomment">/// embedded directly into an operand byte of an instruction.</span>
+<span class="doccomment">/// Values must be in the range `-128..=127` to be an immediate.  Immediates are</span>
+<span class="doccomment">/// embedded directly into an operand byte of an [`Instruction`].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Integers outside this range and other literal types like double-precision floats</span>
 <span class="doccomment">/// and strings must use [`ConstantKey`].</span>
@@ -555,8 +559,12 @@
 
 <span class="doccomment">/// A key into a function&#39;s constant table</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Used for integer literals outsize the range of `-127..=128` and other literal types</span>
-<span class="doccomment">/// that can&#39;t fit into a single byte.</span>
+<span class="doccomment">/// Used for integer literals outsize the range of `-127..=128` and other literal types.</span>
+<span class="doccomment">/// A compiled function, [`Procedure`], has a field holding a table of [`ConstantValue`]s.</span>
+<span class="doccomment">/// A `ConstantKey` is an index into this table.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`Procedure`]: crate::bytecode::Procedure</span>
+<span class="doccomment">/// [`ConstantValue`]: crate::bytecode::constant_value::ConstantValue</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
 <span class="attribute">#[<span class="ident">repr</span>(<span class="ident">transparent</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ConstantKey</span>(<span class="kw">pub</span> <span class="ident">u8</span>);
